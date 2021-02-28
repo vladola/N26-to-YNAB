@@ -198,7 +198,7 @@ def _convert_n26_transaction_to_ynab(t_n26, account_id):
         "approved": False,
         "deleted": False,
         "payee_name": payee,
-    }    
+    }
     t_ynab = ynab_client.TransactionWrapper(t_ynab)
     return t_ynab.transaction
 
