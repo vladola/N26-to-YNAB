@@ -193,6 +193,9 @@ def _convert_n26_transaction_to_ynab(t_n26, account_id):
     Returns:
         ynab_client.Transaction: transaction in the YNAB native format.
     """
+    payee = t_n26.get("merchantName", None)
+    if payee == None:
+        payee = t_n26.get("partnerName", None)
     t_ynab = {
         "id": t_n26["id"],
         "import_id": t_n26["id"],
@@ -203,7 +206,7 @@ def _convert_n26_transaction_to_ynab(t_n26, account_id):
         "cleared": "uncleared",
         "approved": False,
         "deleted": False,
-        "payee_name": t_n26.get("merchantName", None),
+        "payee_name": payee,
     }
     t_ynab = ynab_client.TransactionWrapper(t_ynab)
     return t_ynab.transaction
